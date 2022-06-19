@@ -10,13 +10,30 @@ import {
   TouchableOpacity,
   ToastAndroid,
 } from "react-native";
+
+import axios  from 'axios';
  
 export default function App() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const loginHandler = () => {
-    ToastAndroid.show(email, ToastAndroid.SHORT);
+    axios.post('https://anzarianz.elabins.com/wp-json/jwt-auth/v1/token', {
+        username, password
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(function (response) {
+      ToastAndroid.show('Login success', ToastAndroid.SHORT);
+      ToastAndroid.show('Welcome ' + response.data.data.displayName, ToastAndroid.SHORT);
+    })
+    .catch(function (error) {
+      console.log('Error', error);
+      ToastAndroid.show('Login Error', ToastAndroid.SHORT);
+      ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
+    });
   }
  
   return (
@@ -27,16 +44,16 @@ export default function App() {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Email."
+          placeholder="Username"
           placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(username) => setUsername(username)}
         />
       </View>
  
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Password."
+          placeholder="Password"
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
@@ -69,7 +86,7 @@ const styles = StyleSheet.create({
   },
  
   inputView: {
-    backgroundColor: "#FFC0CB",
+    backgroundColor: "#7b40ff7d",
     borderRadius: 30,
     width: "70%",
     height: 45,
@@ -98,6 +115,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    backgroundColor: "#FF1493",
+    backgroundColor: "#6200EA",
+  },
+  loginText: {
+    color: "#FFFFFF"
+    
   },
 });
