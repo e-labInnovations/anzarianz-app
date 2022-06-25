@@ -1,5 +1,8 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, {
+  useState,
+  useEffect
+} from "react";
 import {
   StyleSheet,
   Text,
@@ -16,9 +19,14 @@ import axios  from 'axios';
 export default function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [jwtToken, setJwtToken] = useState('')
+
+  // useEffect(() => {
+    
+  // }, [jwtToken]);
 
   const loginHandler = () => {
-    axios.post('https://anzarianz.elabins.com/wp-json/jwt-auth/v1/token', {
+    axios.post('https://anzarianz.elabins.com/wp-json/api/v1/token', {
         username, password
     }, {
       headers: {
@@ -27,12 +35,37 @@ export default function App() {
     })
     .then(function (response) {
       ToastAndroid.show('Login success', ToastAndroid.SHORT);
-      ToastAndroid.show('Welcome ' + response.data.data.displayName, ToastAndroid.SHORT);
+      // ToastAndroid.show('Welcome ' + response.data, ToastAndroid.SHORT);
+      console.log(response.data);
+      setJwtToken(response.data.jwt_token)
     })
     .catch(function (error) {
       console.log('Error', error);
       ToastAndroid.show('Login Error', ToastAndroid.SHORT);
-      ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
+      // ToastAndroid.show(error.response.data, ToastAndroid.SHORT);
+    });
+  }
+
+  const createPost = () => {
+    axios.post('https://anzarianz.elabins.com/wp-json/wp/v2/posts', {
+      "title" : "Post2 using api",
+      "content" : "Test content",
+      "status" : "publish"
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + jwtToken
+      }
+    })
+    .then(function (response) {
+      ToastAndroid.show('Login success', ToastAndroid.SHORT);
+      // ToastAndroid.show('Welcome ' + response.data, ToastAndroid.SHORT);
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log('Error', error);
+      ToastAndroid.show('Login Error', ToastAndroid.SHORT);
+      // ToastAndroid.show(error.response.data, ToastAndroid.SHORT);
     });
   }
  
@@ -66,6 +99,10 @@ export default function App() {
  
       <TouchableOpacity style={styles.loginBtn} onPress={loginHandler}>
         <Text style={styles.loginText}>LOGIN</Text>
+      </TouchableOpacity>
+ 
+      <TouchableOpacity style={styles.loginBtn} onPress={createPost}>
+        <Text style={styles.loginText}>Submit</Text>
       </TouchableOpacity>
     </View>
   );
