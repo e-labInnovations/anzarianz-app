@@ -1,3 +1,17 @@
+import { View, Text } from 'react-native'
+import React from 'react'
+
+const Login = () => {
+  return (
+    <View>
+      <Text>Login</Text>
+    </View>
+  )
+}
+
+export default Login
+
+/*
 import { StatusBar } from "expo-status-bar";
 import React, {
   useState,
@@ -71,7 +85,7 @@ export default function App() {
  
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require("./assets/icon.png")} />
+      <Image style={styles.image} source={require("../assets/icon.png")} />
  
       <StatusBar style="auto" />
       <View style={styles.inputView}>
@@ -159,3 +173,4 @@ const styles = StyleSheet.create({
     
   },
 });
+*/
