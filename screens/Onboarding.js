@@ -6,7 +6,6 @@ import {
     TouchableOpacity
 } from "react-native";
 
-import AppLoading from "expo-app-loading";
 import { MaterialIcons } from '@expo/vector-icons';
 import StartImg from '../assets/mobile_life_re_jtih.svg'
 
