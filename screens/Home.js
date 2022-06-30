@@ -16,7 +16,7 @@ const Home = ( {navigation} ) => {
             <View style={styles.userProfileView}>
                 <Text style={styles.userProfileText}>Hello Ashad</Text>
                 <TouchableOpacity onPress={() =>{navigation.openDrawer()} }>
-                    <ImageBackground source={require('../assets/user.jpg')} style={styles.userProfileImg} imageStyle={{borderRadius: 25}} />
+                    <ImageBackground source={require('../assets/images/user.jpg')} style={styles.userProfileImg} imageStyle={{borderRadius: 25}} />
                 </TouchableOpacity>
             </View>
           </ScrollView>

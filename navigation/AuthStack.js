@@ -9,7 +9,7 @@ const AuthStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen component={Onboarding} name='Onboarding' options={{headerShown:false}} />
-      <Stack.Screen component={Login} name='Login' />
+      <Stack.Screen component={Login} name='Login' options={{headerShown:false}} />
     </Stack.Navigator>
   )
 }

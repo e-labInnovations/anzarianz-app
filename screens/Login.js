@@ -1,13 +1,96 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import {
+  SafeAreaView,
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity
+} from 'react-native'
+
+import LoginSVG from '../assets/images/login_re_4vu2.svg'
+import { FontAwesome5 } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 const Login = () => {
   return (
-    <View>
-      <Text>Login</Text>
-    </View>
+    <SafeAreaView style={styles.SafeAreaView}>
+      <View style={styles.mainView}>
+        <View style={styles.loginSVGView}>
+          <LoginSVG height={300} width={300} style={styles.loginSVGImg} />
+        </View>
+        <Text style={styles.loginText}>Login</Text>
+        <View style={styles.inputView}>
+          <FontAwesome5 name="user-circle" size={20} color="#666" style={styles.inputIcon} />
+          <TextInput placeholder='Username' style={styles.input} />
+        </View>
+        <View style={styles.inputView}>
+          <Ionicons name="ios-lock-closed-outline" size={20} color="#666" style={styles.inputIcon} />
+          <TextInput placeholder='Username' style={styles.input} secureTextEntry={true} />
+          <TouchableOpacity onPress={() => {}}>
+            <Text style={styles.forgotText}>Foregot?</Text>
+          </TouchableOpacity>
+        </View>
+        
+        <TouchableOpacity onPress={() => {}} style={styles.loginButton}>
+          <Text style={styles.loginButtonText}>Login</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  SafeAreaView: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  loginSVGView: {
+    alignItems: 'center'
+  },
+  loginSVGImg: {
+  },
+  loginText:{
+    fontFamily: 'roboto-medium',
+    fontSize: 28,
+    fontWeight: '500',
+    color: '#333',
+    marginBottom: 30
+  },
+  mainView: {
+    paddingHorizontal: 25
+  },
+  inputView: {
+    flexDirection: 'row',
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+    paddingBottom: 8,
+    marginBottom: 25
+  },
+  inputIcon: {
+    marginRight: 5
+  },
+  input: {
+    flex: 1,
+    paddingVertical: 0
+  },
+  forgotText: {
+    color: '#AD40AF',
+    fontWeight: '700'
+  },
+  loginButton: {
+    backgroundColor: '#AD40AF',
+    padding: 20,
+    borderRadius: 10,
+    marginBottom: 30
+  },
+  loginButtonText: {
+    textAlign: 'center',
+    fontWeight: '700',
+    fontSize: 16,
+    color: '#FFF'
+  }
+});
 
 export default Login
 
