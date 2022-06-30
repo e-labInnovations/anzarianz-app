@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   SafeAreaView,
   View,
@@ -15,6 +15,9 @@ import { AuthContext } from '../context/AuthContext';
 
 const Login = () => {
   const {login} = useContext(AuthContext)
+  const [username, setUsername] = useState(null)
+  const [password, setPassword] = useState(null)
+
   return (
     <SafeAreaView style={styles.SafeAreaView}>
       <View style={styles.mainView}>
@@ -24,17 +27,17 @@ const Login = () => {
         <Text style={styles.loginText}>Login</Text>
         <View style={styles.inputView}>
           <FontAwesome5 name="user-circle" size={20} color="#666" style={styles.inputIcon} />
-          <TextInput placeholder='Username' style={styles.input} />
+          <TextInput placeholder='Username' style={styles.input} value={username} keyboardType="email-address" onChangeText={text => setUsername(text)} />
         </View>
         <View style={styles.inputView}>
           <Ionicons name="ios-lock-closed-outline" size={20} color="#666" style={styles.inputIcon} />
-          <TextInput placeholder='Username' style={styles.input} secureTextEntry={true} />
+          <TextInput placeholder='Username' style={styles.input} secureTextEntry={true} value={password} onChangeText={text => setPassword(text)} />
           <TouchableOpacity onPress={() => {}}>
             <Text style={styles.forgotText}>Foregot?</Text>
           </TouchableOpacity>
         </View>
         
-        <TouchableOpacity onPress={() => {login()}} style={styles.loginButton}>
+        <TouchableOpacity onPress={() => {login(username, password)}} style={styles.loginButton}>
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
       </View>
