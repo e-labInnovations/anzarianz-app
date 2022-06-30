@@ -14,8 +14,8 @@ const CustomDrawer = (props) => {
   return (
     <View style={styles.mainView}>
         <DrawerContentScrollView {...props} contentContainerStyle={styles.drawerContentScrollView}>
-            <ImageBackground source={require('../assets/images/drawer_bg.jpg')} style={styles.drawerProfileBG}>
-                <Image source={require('../assets/images/user.jpg')} style={styles.profileImg} />
+            <ImageBackground source={require('../../assets/images/drawer_bg.jpg')} style={styles.drawerProfileBG}>
+                <Image source={require('../../assets/images/user.jpg')} style={styles.profileImg} />
                 <Text style={styles.profileName}>Ashad</Text>
                 <Text style={styles.profileRoom}>Room: 20</Text>
             </ImageBackground>

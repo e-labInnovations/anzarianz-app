@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 import { MaterialIcons } from '@expo/vector-icons';
-import StartImg from '../assets/images/mobile_life_re_jtih.svg'
+import StartImg from '../../assets/images/mobile_life_re_jtih.svg'
 
 const Onboarding = ({navigation}) => {
    

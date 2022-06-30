@@ -8,7 +8,7 @@ import {
   TouchableOpacity
 } from 'react-native'
 
-import LoginSVG from '../assets/images/login_re_4vu2.svg'
+import LoginSVG from '../../assets/images/login_re_4vu2.svg'
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
