@@ -23,8 +23,8 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {/* <AppStack /> */}
-      <AuthStack />
+      <AppStack />
+      {/* <AuthStack /> */}
     </NavigationContainer>
   )
 }
