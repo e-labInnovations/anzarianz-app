@@ -5,16 +5,19 @@ import {
     Text,
     SafeAreaView,
     ScrollView,
-    ImageBackground
+    ImageBackground,
+    TouchableOpacity
 } from "react-native";
 
-const Home = () => {
+const Home = ( {navigation} ) => {
     return (
         <SafeAreaView style={styles.safeArea}>
           <ScrollView style={styles.scrollView}>
             <View style={styles.userProfileView}>
                 <Text style={styles.userProfileText}>Hello Ashad</Text>
-                <ImageBackground source={require('../assets/user.jpg')} style={styles.userProfileImg} imageStyle={{borderRadius: 25}} />
+                <TouchableOpacity onPress={() =>{navigation.openDrawer()} }>
+                    <ImageBackground source={require('../assets/user.jpg')} style={styles.userProfileImg} imageStyle={{borderRadius: 25}} />
+                </TouchableOpacity>
             </View>
           </ScrollView>
         </SafeAreaView>

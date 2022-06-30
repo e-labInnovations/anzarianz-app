@@ -14,6 +14,7 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     'roboto-medium-italic' : require('./assets/fonts/Roboto-MediumItalic.ttf'),
     'roboto-medium' : require('./assets/fonts/Roboto-Medium.ttf'),
+    'roboto-regular' : require('./assets/fonts/Roboto-Regular.ttf'),
   })
   
 
