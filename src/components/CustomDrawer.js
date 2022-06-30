@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
     View,
     Text,
@@ -9,8 +9,11 @@ import {
 } from 'react-native'
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import { Ionicons } from '@expo/vector-icons';
+import { AuthContext } from '../context/AuthContext';
 
 const CustomDrawer = (props) => {
+  const {logout} = useContext(AuthContext)
+
   return (
     <View style={styles.mainView}>
         <DrawerContentScrollView {...props} contentContainerStyle={styles.drawerContentScrollView}>
@@ -26,13 +29,13 @@ const CustomDrawer = (props) => {
         <View style={styles.bottomView}>
             <TouchableOpacity onPress={() => {}} style={styles.customButton} >
                 <View style={styles.customButtonView}>
-                    <Ionicons name="share-social-outline" size={22} color="black" />
+                    <Ionicons name="share-social-outline" size={22} color="#ccc" />
                     <Text style={styles.customButtonText}>Share to friends</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {}} style={styles.customButton} >
+            <TouchableOpacity onPress={() => {logout()}} style={styles.customButton} >
                 <View style={styles.customButtonView}>
-                    <Ionicons name="exit-outline" size={22} color="black" />
+                    <Ionicons name="exit-outline" size={22} color="#ccc" />
                     <Text style={styles.customButtonText}>Sign Out</Text>
                 </View>
             </TouchableOpacity>

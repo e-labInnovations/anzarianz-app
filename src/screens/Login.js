@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   SafeAreaView,
   View,
@@ -11,8 +11,10 @@ import {
 import LoginSVG from '../../assets/images/login_re_4vu2.svg'
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { AuthContext } from '../context/AuthContext';
 
 const Login = () => {
+  const {login} = useContext(AuthContext)
   return (
     <SafeAreaView style={styles.SafeAreaView}>
       <View style={styles.mainView}>
@@ -32,7 +34,7 @@ const Login = () => {
           </TouchableOpacity>
         </View>
         
-        <TouchableOpacity onPress={() => {}} style={styles.loginButton}>
+        <TouchableOpacity onPress={() => {login()}} style={styles.loginButton}>
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
       </View>
