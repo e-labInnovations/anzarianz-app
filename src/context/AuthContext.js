@@ -24,9 +24,9 @@ export const AuthProvider = ({children}) => {
                 }
             }).then(function (userResponse) {
                 console.log(userResponse.data);
-                // setUserInfo(userResponse.data)
+                setUserInfo(userResponse.data)
                 AsyncStorage.setItem('userToken', response.data.jwt_token)
-                // AsyncStorage.setItem('userInfo', userResponse.data)
+                AsyncStorage.setItem('userInfo', userResponse.data)
                 setIsLoading(false)
             }).catch(function (error) {
                 console.log('Error getting user info', error);
@@ -65,12 +65,28 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    const getMe = () => {
+        //Get User Info
+        axios.get(`${BASE_URL}/wp-json/wp/v2/users/me`, {}, {
+            headers: {
+                'Authorization': 'Bearer ' + userResponse
+            }
+        }).then(function (userResponse) {
+            console.log(userResponse.data);
+            setUserInfo(userResponse.data)
+            AsyncStorage.setItem('userInfo', userResponse.data)
+            console.log(userResponse);
+        }).catch(function (error) {
+            console.log('Error getting user info', error);
+        });
+    }
+
     useEffect(() => {
         isLoggedIn()
     }, [])
 
     return (
-        <AuthContext.Provider value={{ login, logout, isLoading, userToken }}>
+        <AuthContext.Provider value={{ login, logout, isLoading, userToken, getMe }}>
             {children}
         </AuthContext.Provider>
     )

@@ -1,4 +1,4 @@
-import react from "react";
+import react, { useContext, useEffect } from "react";
 import {
     StyleSheet,
     View,
@@ -9,7 +9,15 @@ import {
     TouchableOpacity
 } from "react-native";
 
+import { AuthContext } from "../context/AuthContext";
+
 const Home = ( {navigation} ) => {
+  const { getMe } = useContext(AuthContext)
+
+  useEffect(() => {
+    // getMe()
+  }, [])
+
     return (
         <SafeAreaView style={styles.safeArea}>
           <ScrollView style={styles.scrollView}>
