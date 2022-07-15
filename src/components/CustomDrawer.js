@@ -12,14 +12,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { AuthContext } from '../context/AuthContext';
 
 const CustomDrawer = (props) => {
-  const {logout} = useContext(AuthContext)
+  const { logout, userInfo } = useContext(AuthContext)
 
   return (
     <View style={styles.mainView}>
         <DrawerContentScrollView {...props} contentContainerStyle={styles.drawerContentScrollView}>
             <ImageBackground source={require('../../assets/images/drawer_bg.jpg')} style={styles.drawerProfileBG}>
-                <Image source={require('../../assets/images/user.jpg')} style={styles.profileImg} />
-                <Text style={styles.profileName}>Ashad</Text>
+                <Image source={{ uri: userInfo.avatar_urls['96'] }} style={styles.profileImg} />
+                <Text style={styles.profileName}>{userInfo.name}</Text>
                 <Text style={styles.profileRoom}>Room: 20</Text>
             </ImageBackground>
             <View style={styles.DrawerItemListView}>
