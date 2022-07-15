@@ -12,19 +12,18 @@ import {
 import { AuthContext } from "../context/AuthContext";
 
 const Home = ( {navigation} ) => {
-  const { getMe } = useContext(AuthContext)
+  const { userInfo } = useContext(AuthContext)
 
   useEffect(() => {
-    // getMe()
   }, [])
 
     return (
         <SafeAreaView style={styles.safeArea}>
           <ScrollView style={styles.scrollView}>
             <View style={styles.userProfileView}>
-                <Text style={styles.userProfileText}>Hello Ashad</Text>
+                <Text style={styles.userProfileText}>Hello {userInfo.name}</Text>
                 <TouchableOpacity onPress={() =>{navigation.openDrawer()} }>
-                    <ImageBackground source={require('../../assets/images/user.jpg')} style={styles.userProfileImg} imageStyle={{borderRadius: 25}} />
+                    <ImageBackground source={{ uri: userInfo.avatar_urls['48'] }} style={styles.userProfileImg} imageStyle={{borderRadius: 25}} />
                 </TouchableOpacity>
             </View>
           </ScrollView>
