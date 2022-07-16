@@ -10,7 +10,7 @@ import AppStack from "./AppStack";
 const Stack = createNativeStackNavigator();
 
 const AppNav = () => {
-    const {isLoading, userToken} = useContext(AuthContext)
+    const { isLoading, userToken, userInfo } = useContext(AuthContext)
 
     if( isLoading ) {
         <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
@@ -20,7 +20,7 @@ const AppNav = () => {
 
     return (
         <NavigationContainer>
-            { userToken !== null ? <AppStack /> : <AuthStack /> }
+            { userToken && userInfo ? <AppStack /> : <AuthStack /> }
         </NavigationContainer>
     )
 }

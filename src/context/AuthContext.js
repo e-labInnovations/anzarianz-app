@@ -77,9 +77,10 @@ export const AuthProvider = ({children}) => {
             }
         }).then(function (userResponse) {
             console.log(userResponse.data);
-            // setUserInfo(userResponse.data)
-            // AsyncStorage.setItem('userInfo', userResponse.data)
-            // console.log(userResponse);
+            let _userResponse = userResponse.data
+
+            setUserInfo(_userResponse)
+            AsyncStorage.setItem('userInfo', JSON.stringify(_userResponse))
         }).catch(function (error) {
             console.log('Error getting user info', error);
         });
@@ -90,7 +91,7 @@ export const AuthProvider = ({children}) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ login, logout, isLoading, userToken, userInfo }}>
+        <AuthContext.Provider value={{ login, logout, isLoading, userToken, userInfo, getMe }}>
             {children}
         </AuthContext.Provider>
     )

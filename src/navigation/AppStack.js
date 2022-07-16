@@ -22,14 +22,14 @@ const AppStack = () => {
         }
       }}>
       <Drawer.Screen component={TabNavigator} name='Home' options={{
-        drawerIcon: ({color}) => {
+        drawerIcon: ({color}) => (
           <AntDesign name="home" size={22} color={color} />
-        }
+        )
       }} />
       <Drawer.Screen component={Settings} name='Settings' options={{
-        drawerIcon: ({color}) => {
+        drawerIcon: ({color}) => (
           <AntDesign name="setting" size={22} color={color} />
-        }
+        )
       }} />
     </Drawer.Navigator>
   )

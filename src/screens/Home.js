@@ -26,6 +26,9 @@ const Home = ( {navigation} ) => {
                     <ImageBackground source={{ uri: userInfo.avatar_urls['48'] }} style={styles.userProfileImg} imageStyle={{borderRadius: 25}} />
                 </TouchableOpacity>
             </View>
+            <View>
+                <Text>{JSON.stringify(userInfo)}</Text>
+            </View>
           </ScrollView>
         </SafeAreaView>
      );
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     userProfileText: {
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: 'roboto-medium'
     },
     userProfileImg: {
