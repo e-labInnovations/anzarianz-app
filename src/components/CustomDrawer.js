@@ -20,7 +20,7 @@ const CustomDrawer = (props) => {
             <ImageBackground source={require('../../assets/images/drawer_bg.jpg')} style={styles.drawerProfileBG}>
                 <Image source={{ uri: userInfo.avatar_urls['96'] }} style={styles.profileImg} />
                 <Text style={styles.profileName}>{userInfo.name}</Text>
-                <Text style={styles.profileRoom}>Room: 20</Text>
+                <Text style={styles.profileRoom}>Room: {userInfo.room_no}</Text>
             </ImageBackground>
             <View style={styles.DrawerItemListView}>
                 <DrawerItemList {...props} />

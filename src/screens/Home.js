@@ -6,7 +6,8 @@ import {
     SafeAreaView,
     ScrollView,
     ImageBackground,
-    TouchableOpacity
+    TouchableOpacity,
+    StatusBar
 } from "react-native";
 
 import { AuthContext } from "../context/AuthContext";
@@ -38,7 +39,8 @@ const Home = ( {navigation} ) => {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFFFFF',
+        marginTop:StatusBar.currentHeight
     },
     scrollView: {
         padding: 20

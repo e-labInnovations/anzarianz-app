@@ -86,7 +86,7 @@ export const AuthProvider = ({children}) => {
                 'Authorization': 'Bearer ' + userToken
             }
         }).then(function (userResponse) {
-            console.log(userResponse.data);
+            // console.log(userResponse.data);
             let _userResponse = userResponse.data
 
             setUserInfo(_userResponse)

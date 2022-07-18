@@ -1,30 +1,92 @@
-import React, { useState } from 'react'
-import { View, Text } from 'react-native'
+import React, { useState, useEffect, useContext } from 'react'
+import { SafeAreaView, StyleSheet, View, Text, StatusBar } from 'react-native'
 import {Calendar} from 'react-native-calendars';
+import axios from 'axios'
+import { AuthContext } from "../context/AuthContext";
+import { BASE_URL } from '../config';
+import Toast from 'react-native-toast-message';
 
 const MessCalendar = () => {
-  const [markedDates, setMarkedDates] = useState({
-    '2022-07-20': {textColor: 'green'},
-    '2022-07-22': {startingDay: true, color: 'green'},
-    '2022-07-23': {selected: true, endingDay: true, color: 'green', textColor: 'gray'},
-    '2022-07-04': {disabled: true, startingDay: true, color: 'green', endingDay: true}
-  })
+  const { userToken } = useContext(AuthContext)
+  const [markedDates, setMarkedDates] = useState({})
+  const [leaves, setLeaves] = useState([])
 
   const handleDayPress = (day) => {
     console.log(day)
   }
 
+  const getLeaves = () => {
+    axios.get(`${BASE_URL}/wp-json/anzarianz/v1/leaves/`, {
+        headers: {
+            'Authorization': 'Bearer ' + userToken
+        }
+    }).then(function (userResponse) {
+        // console.log(JSON.stringify(userResponse.data));
+        setLeaves(userResponse.data)
+    }).catch(function (error) {
+        console.log('Error getting user info', error);
+    });
+  }
+
+  useEffect(() => {
+    getLeaves()
+  }, [])
+
+  useEffect(() => {
+    Date.prototype.addDays = function(days) {
+        var dat = new Date(this.valueOf())
+        dat.setDate(dat.getDate() + days);
+        return dat;
+    }
+
+    function getDates(startDate, stopDate) {
+      var dateArray = new Array();
+      var currentDate = startDate;
+      while (currentDate <= stopDate) {
+        dateArray.push(currentDate)
+        currentDate = currentDate.addDays(1);
+      }
+      return dateArray;
+    }
+
+    let _markedDates = {}
+
+    leaves.forEach(leave => {
+      let startDate = leave.leaving_at.split(' ')[0]
+      let endDate = leave.rejoining_at.split(' ')[0]
+
+      var dateArray = getDates(new Date(startDate), new Date(endDate));
+      dateArray.forEach((_d, idx, array) => {
+        _markedDates[_d.toISOString().split('T')[0]] = {
+          startingDay: idx === 0,
+          endingDay: idx === array.length - 1,
+          color: 'red',
+          textColor: '#fff'
+        }
+      })
+    })
+    setMarkedDates(_markedDates)
+  }, [leaves])
+
   return (
-    <View>
+    <SafeAreaView style={styles.container}>
       <Calendar
-      markedDates={markedDates}
-      markingType={'period'}
-      onDayPress={handleDayPress}
-    />
-    <Text>Test</Text>
-    </View>
+        markedDates={markedDates}
+        markingType={'period'}
+        onDayPress={handleDayPress}
+      />
+      <Text>{JSON.stringify(leaves)}</Text>
+    </SafeAreaView>
     
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+      flex: 1,
+      marginTop:StatusBar.currentHeight,
+      backgroundColor: '#fff'
+  }
+});
 
 export default MessCalendar
