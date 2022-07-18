@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
+import Toast from 'react-native-toast-message';
 import { BASE_URL } from '../config'
 export const AuthContext = createContext()
 
@@ -8,6 +9,14 @@ export const AuthProvider = ({children}) => {
     const [isLoading, setIsLoading] = useState(true)
     const [userToken, setUserToken] = useState(null)
     const [userInfo, setUserInfo] = useState(null)
+
+    const showToast = (message) => {
+        Toast.show({
+            type: 'error',
+            text1: 'Error Login',
+            text2: message
+        });
+    };
 
     const login = (username, password) => {
         setIsLoading(true)
@@ -36,8 +45,9 @@ export const AuthProvider = ({children}) => {
                 setIsLoading(false)
             });
 
-        }).catch( error => {
-            console.log('Error login', error);
+        }).catch(error => {
+            showToast(error.response.data.message)
+            console.log('Error login', error.response.data.message);
             setIsLoading(false)
         });
 
