@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../screens/Home';
-import Tab2 from '../screens/Tab2';
+import MessCalendar from '../screens/MessCalendar';
 import Tab3 from '../screens/Tab3';
 
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
@@ -39,13 +39,17 @@ const TabNavigator = () => {
                     )
                 }}
             />
-            <Tab.Screen name='Tab2' component={Tab2} options={{
-                tabBarIcon: ({color, size}) => (
-                    <MaterialIcons name="payment" size={size} color={color} />
-                ),
-                tabBarBadge: 5,
-                tabBarBadgeStyle: {backgroundColor: 'yellow'}
-            }} />
+            <Tab.Screen 
+                name='MessCalendar'
+                component={MessCalendar}
+                options={{
+                    tabBarIcon: ({color, size}) => (
+                        <MaterialIcons name="payment" size={size} color={color} />
+                    ),
+                    tabBarBadge: 5,
+                    tabBarBadgeStyle: {backgroundColor: 'yellow'}
+                }}
+            />
             <Tab.Screen name='Tab3' component={Tab3} options={{
                 tabBarIcon: ({color, size}) => (
                     <Entypo name="calendar" size={size} color={color} />
