@@ -5,26 +5,31 @@ import axios from 'axios'
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from '../config';
 import Toast from 'react-native-toast-message';
+import { FloatingAction } from "react-native-floating-action";
 
 const MessCalendar = () => {
   const { userToken } = useContext(AuthContext)
   const [markedDates, setMarkedDates] = useState({})
   const [leaves, setLeaves] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   const handleDayPress = (day) => {
     console.log(day)
   }
 
   const getLeaves = () => {
+    setIsLoading(true)
     axios.get(`${BASE_URL}/wp-json/anzarianz/v1/leaves/`, {
         headers: {
             'Authorization': 'Bearer ' + userToken
         }
     }).then(function (userResponse) {
-        // console.log(JSON.stringify(userResponse.data));
-        setLeaves(userResponse.data)
+      // console.log(JSON.stringify(userResponse.data));
+      setLeaves(userResponse.data)
+      setIsLoading(false)
     }).catch(function (error) {
-        console.log('Error getting user info', error);
+      console.log('Error getting user info', error);
+      setIsLoading(false)
     });
   }
 
@@ -74,8 +79,18 @@ const MessCalendar = () => {
         markedDates={markedDates}
         markingType={'period'}
         onDayPress={handleDayPress}
+        displayLoadingIndicator={isLoading}
       />
       <Text>{JSON.stringify(leaves)}</Text>
+      <FloatingAction
+        onPressMain={() => {
+          Toast.show({
+            type: 'success',
+            text1: 'Hello',
+            text2: 'This is some something 👋'
+          });
+        }}
+      />
     </SafeAreaView>
     
   )
