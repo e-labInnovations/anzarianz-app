@@ -5,4 +5,7 @@
 - [x] Drawer Navigation
 - [x] Auth fixed
 - [x] Fix icons for both tab and drawer navigations
-- [ ] Implement food calendar
+- [x] Add leave calendar
+- [ ] Create new screen for adding new leave
+- [ ] Add new tab for bill details
+- [ ] Implement food timetable
