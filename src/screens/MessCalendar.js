@@ -6,6 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from '../config';
 import Toast from 'react-native-toast-message';
 import { FloatingAction } from "react-native-floating-action";
+import moment from 'moment';
 
 const MessCalendar = () => {
   const { userToken } = useContext(AuthContext)
@@ -38,18 +39,13 @@ const MessCalendar = () => {
   }, [])
 
   useEffect(() => {
-    Date.prototype.addDays = function(days) {
-        var dat = new Date(this.valueOf())
-        dat.setDate(dat.getDate() + days);
-        return dat;
-    }
-
     function getDates(startDate, stopDate) {
-      var dateArray = new Array();
-      var currentDate = startDate;
+      var dateArray = [];
+      var currentDate = moment(new Date(startDate));
+      var stopDate = moment(new Date(stopDate));
       while (currentDate <= stopDate) {
-        dateArray.push(currentDate)
-        currentDate = currentDate.addDays(1);
+        dateArray.push( moment(currentDate).format('YYYY-MM-DD') )
+        currentDate = moment(currentDate).add(1, 'days');
       }
       return dateArray;
     }
@@ -60,9 +56,9 @@ const MessCalendar = () => {
       let startDate = leave.leaving_at.split(' ')[0]
       let endDate = leave.rejoining_at.split(' ')[0]
 
-      var dateArray = getDates(new Date(startDate), new Date(endDate));
-      dateArray.forEach((_d, idx, array) => {
-        _markedDates[_d.toISOString().split('T')[0]] = {
+      var dateArray = getDates(startDate, endDate);
+      dateArray.forEach((date, idx, array) => {
+        _markedDates[date] = {
           startingDay: idx === 0,
           endingDay: idx === array.length - 1,
           color: 'red',
