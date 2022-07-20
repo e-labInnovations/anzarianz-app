@@ -153,7 +153,7 @@ const FIXTURE_EVENTS = [
   },
 ]
 
-const App = () => {
+const Food = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const pivotDate = useMemo(() => genTimeBlock('mon'), []);
 
@@ -192,4 +192,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default Food;

@@ -3,9 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../screens/Home';
 import MessCalendar from '../screens/MessCalendar';
-import Tab3 from '../screens/Tab3';
+import Food from '../screens/Food';
+import Payments from '../screens/Payments';
 
-import { MaterialIcons, Entypo } from '@expo/vector-icons';
+import { Ionicons, Entypo, FontAwesome5 } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -39,20 +40,29 @@ const TabNavigator = () => {
                     )
                 }}
             />
+            <Tab.Screen
+                name='ills'
+                component={Payments}
+                options={{
+                    tabBarIcon: ({color, size}) => (
+                        <FontAwesome5 name="money-check-alt" size={size} color={color} />
+                    )
+                }}
+            />
             <Tab.Screen 
                 name='MessCalendar'
                 component={MessCalendar}
                 options={{
                     tabBarIcon: ({color, size}) => (
-                        <MaterialIcons name="payment" size={size} color={color} />
+                        <Ionicons name="calendar" size={size} color={color} />
                     ),
                     tabBarBadge: 5,
                     tabBarBadgeStyle: {backgroundColor: 'yellow'}
                 }}
             />
-            <Tab.Screen name='Tab3' component={Tab3} options={{
+            <Tab.Screen name='Food' component={Food} options={{
                 tabBarIcon: ({color, size}) => (
-                    <Entypo name="calendar" size={size} color={color} />
+                    <Ionicons name="md-fast-food" size={size} color={color} />
                 )
             }} />
         </Tab.Navigator>
