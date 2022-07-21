@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import TimeTableView, { genTimeBlock } from 'react-native-timetable';
-import { Theme } from '../theme';
+import { Theme } from '../Theme';
 
 // import {Colors} from 'react-native/Libraries/NewAppScreen';
 

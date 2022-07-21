@@ -13,7 +13,7 @@ import { BASE_URL } from '../config';
 import { FloatingAction } from "react-native-floating-action";
 import moment from 'moment';
 import { Ionicons } from '@expo/vector-icons';
-import { Theme } from '../theme';
+import { Theme } from '../Theme';
 
 const MessLeaves = ({navigation}) => {
   const { userToken } = useContext(AuthContext)

@@ -9,7 +9,9 @@
 - [x] Auth fixed
 - [x] Fix icons for both tab and drawer navigations
 - [x] Add leave calendar
-- [ ] Create new screen for adding new leave
-- [ ] Add new tab for bill details
+- [x] Create new screen for adding new leave
+- [x] Add new tab for bill details
 - [x] Implement food timetable
 - [ ] Make food timetable dynamic
+- [ ] Fix total day counting
+- [ ] add leave to server
