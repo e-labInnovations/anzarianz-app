@@ -5,9 +5,6 @@ import {
   View,
   Text,
   StatusBar,
-  Modal,
-  TouchableOpacity,
-  TextInput
 } from 'react-native'
 import { Calendar } from 'react-native-calendars';
 import axios from 'axios'
@@ -16,15 +13,13 @@ import { BASE_URL } from '../config';
 import { FloatingAction } from "react-native-floating-action";
 import moment from 'moment';
 import { Ionicons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
 
-const MessCalendar = () => {
+const MessLeaves = ({navigation}) => {
   const { userToken } = useContext(AuthContext)
   const { userInfo } = useContext(AuthContext)
   const [markedDates, setMarkedDates] = useState({})
   const [leaves, setLeaves] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [modalVisible, setModalVisible] = useState(false);
 
   const actions = [
     {
@@ -103,45 +98,11 @@ const MessCalendar = () => {
         actions={actions}
         onPressItem={name => {
           if(name == 'bt_add_new_leave') {
-            setModalVisible(true)
+            //Open AddLeave screen
+            navigation.navigate('AddLeave')
           }
         }}
-        // visible={!modalVisible} 
       />
-
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-
-              <Text style={styles.mainText}>Add New Leave</Text>
-              <View style={styles.inputView}>
-                <FontAwesome5 name="user-circle" size={20} color="#666" style={styles.inputIcon} />
-                <TextInput placeholder='Name' style={styles.input} value={userInfo.name} editable={false} />
-              </View>
-              <View style={styles.inputView}>
-                <FontAwesome5 name="user-circle" size={20} color="#666" style={styles.inputIcon} />
-                <TextInput placeholder='Room NO' style={styles.input} value={userInfo.room_no} editable={false} />
-              </View>
-              <View style={styles.inputView}>
-                <Ionicons name="ios-lock-closed-outline" size={20} color="#666" style={styles.inputIcon} />
-                <TextInput placeholder='Username' style={styles.input} />
-              </View>
-              
-              <TouchableOpacity onPress={() => {setModalVisible(!modalVisible)}} style={styles.button}>
-                <Text style={styles.buttonText}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-      </View>
-
     </SafeAreaView>
     
   )
@@ -192,4 +153,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MessCalendar
+export default MessLeaves
