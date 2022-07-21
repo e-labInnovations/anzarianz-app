@@ -6,6 +6,7 @@ import {
     TouchableOpacity
 } from "react-native";
 
+import { Theme } from "../Theme";
 import { MaterialIcons } from '@expo/vector-icons';
 import StartImg from '../../assets/images/mobile_life_re_jtih.svg'
 
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     color: '#20315F'
   },
   startButton: {
-    backgroundColor: '#6C63FF',
+    backgroundColor: Theme.Primary,
     padding: 20,
     width: '90%',
     borderRadius: 5,

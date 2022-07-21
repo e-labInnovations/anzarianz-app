@@ -6,7 +6,8 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import TimeTableView, {genTimeBlock} from 'react-native-timetable';
+import TimeTableView, { genTimeBlock } from 'react-native-timetable';
+import { Theme } from '../theme';
 
 // import {Colors} from 'react-native/Libraries/NewAppScreen';
 
@@ -184,7 +185,7 @@ const Food = () => {
 
 const styles = StyleSheet.create({
   headerStyle: {
-    backgroundColor: '#81E1B8',
+    backgroundColor: Theme.Primary,
   },
   container: {
     flex: 1,

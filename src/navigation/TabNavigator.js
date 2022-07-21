@@ -10,6 +10,7 @@ import Food from '../screens/Food';
 import Payments from '../screens/Payments';
 import AddLeave from '../screens/AddLeave'
 
+import { Theme } from '../Theme';
 import { Ionicons, Entypo, FontAwesome5 } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
@@ -54,10 +55,10 @@ const TabNavigator = () => {
             tabBarShowLabel: false,
             headerShown: false,
             tabBarStyle: {
-                backgroundColor: '#6C63FF'
+                backgroundColor: Theme.Primary
             },
-            tabBarInactiveTintColor: '#FFFFFF',
-            tabBarActiveTintColor: 'yellow'
+            tabBarInactiveTintColor: Theme.SecondaryShade,
+            tabBarActiveTintColor: Theme.Tertiary
         }}>
             <Tab.Screen
                 name='Home2'
@@ -84,13 +85,13 @@ const TabNavigator = () => {
                 options={({route}) => ({
                     tabBarStyle: {
                         display: getTabBarVisibility(route),
-                        backgroundColor: '#6C63FF'
+                        backgroundColor: Theme.Primary
                     },
                     tabBarIcon: ({color, size}) => (
                         <Ionicons name="calendar" size={size} color={color} />
                     ),
                     tabBarBadge: 5,
-                    tabBarBadgeStyle: {backgroundColor: 'yellow'}
+                    tabBarBadgeStyle: {backgroundColor: Theme.Tertiary}
                 })}
             />
             <Tab.Screen name='Food' component={Food} options={{

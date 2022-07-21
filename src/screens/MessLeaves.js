@@ -13,6 +13,7 @@ import { BASE_URL } from '../config';
 import { FloatingAction } from "react-native-floating-action";
 import moment from 'moment';
 import { Ionicons } from '@expo/vector-icons';
+import { Theme } from '../theme';
 
 const MessLeaves = ({navigation}) => {
   const { userToken } = useContext(AuthContext)
@@ -26,7 +27,8 @@ const MessLeaves = ({navigation}) => {
       text: "Add New Leave",
       icon: <Ionicons name="add" size={24} color="#fff" />,
       name: "bt_add_new_leave",
-      position: 1
+      position: 1,
+      color: Theme.Primary
     }
   ];
 
@@ -102,6 +104,7 @@ const MessLeaves = ({navigation}) => {
             navigation.navigate('AddLeave')
           }
         }}
+        color={Theme.Primary}
       />
     </SafeAreaView>
     
@@ -111,46 +114,9 @@ const MessLeaves = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop:StatusBar.currentHeight,
+    // marginTop:StatusBar.currentHeight,
     backgroundColor: '#fff',
   },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    margin: 25
-  },
-  mainText:{
-    fontFamily: 'roboto-medium',
-    fontSize: 28,
-    fontWeight: '500',
-    color: '#333',
-    marginBottom: 30,
-  },
-  inputView: {
-    flexDirection: 'row',
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-    paddingBottom: 8,
-    marginBottom: 25
-  },
-  inputIcon: {
-    marginRight: 5
-  },
-  button: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#AD40AF',
-    padding: 20,
-    borderRadius: 10,
-    marginBottom: 30
-  },
-  buttonText: {
-    textAlign: 'center',
-    fontWeight: '700',
-    fontSize: 16,
-    color: '#FFF'
-  }
 });
 
 export default MessLeaves

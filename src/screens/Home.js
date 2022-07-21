@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: '#FFFFFF',
-        marginTop:StatusBar.currentHeight
+        // marginTop:StatusBar.currentHeight
     },
     scrollView: {
         padding: 20

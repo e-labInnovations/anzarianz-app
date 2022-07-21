@@ -9,6 +9,7 @@ import {
   ActivityIndicator
 } from 'react-native'
 
+import { Theme } from '../Theme';
 import LoginSVG from '../../assets/images/login_re_4vu2.svg'
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -33,7 +34,7 @@ const Login = () => {
         </View>
         <View style={styles.inputView}>
           <Ionicons name="ios-lock-closed-outline" size={20} color="#666" style={styles.inputIcon} />
-          <TextInput placeholder='Username' style={styles.input} secureTextEntry={true} value={password} onChangeText={text => setPassword(text)} />
+          <TextInput placeholder='Password' style={styles.input} secureTextEntry={true} value={password} onChangeText={text => setPassword(text)} />
           <TouchableOpacity onPress={() => {}}>
             <Text style={styles.forgotText}>Foregot?</Text>
           </TouchableOpacity>
@@ -83,14 +84,14 @@ const styles = StyleSheet.create({
     paddingVertical: 0
   },
   forgotText: {
-    color: '#AD40AF',
+    color: Theme.Primary,
     fontWeight: '700'
   },
   loginButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#AD40AF',
+    backgroundColor: Theme.Primary,
     padding: 20,
     borderRadius: 10,
     marginBottom: 30

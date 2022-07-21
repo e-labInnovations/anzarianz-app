@@ -4,6 +4,7 @@ import TabNavigator from './TabNavigator';
 import Settings from '../screens/Settings';
 import CustomDrawer from '../components/CustomDrawer';
 import { AntDesign } from '@expo/vector-icons';
+import { Theme } from '../Theme';
 
 const Drawer = createDrawerNavigator();
 
@@ -12,7 +13,7 @@ const AppStack = () => {
     <Drawer.Navigator drawerContent={ props => <CustomDrawer {...props}/> }
       screenOptions={{
         headerShown:false,
-        drawerActiveBackgroundColor: '#aa18ea',
+        drawerActiveBackgroundColor: Theme.Primary,
         drawerActiveTintColor: '#FFF',
         drawerInactiveTintColor: '#333',
         drawerLabelStyle: {
