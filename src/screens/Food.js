@@ -1,182 +1,225 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {
+  Alert,
   SafeAreaView,
   StatusBar,
   StyleSheet,
   useColorScheme,
   View,
 } from 'react-native';
-import TimeTableView, { genTimeBlock } from 'react-native-timetable';
+import TimeTable from '@mikezzb/react-native-timetable';
 import { Theme } from '../Theme';
 
-// import {Colors} from 'react-native/Libraries/NewAppScreen';
-
-const FIXTURE_EVENTS = [
+const events = [
   {
-    title: 'പൂരി മസാല, കട്ടൻ',
-    startTime: genTimeBlock('SUN', 8),
-    endTime: genTimeBlock('SUN', 9, 30)
+    courseId: 'പൂരി',
+    section: 'മസാല, കട്ടൻ',
+    day: 7,
+    startTime: '8:00',
+    endTime: '9:30'
   },
   {
-    title: 'നെയ്‌ച്ചോർ, ചിക്കൻ കാടായി',
-    startTime: genTimeBlock('SUN', 12),
-    endTime: genTimeBlock('SUN', 1, 30)
+    courseId: 'നെയ്‌ച്ചോർ',
+    section: 'ചിക്കൻ കാടായി',
+    day: 7,
+    startTime: '12:00',
+    endTime: '13:30'
   },
   {
-    title: 'പഴംപൊരി, കട്ടൻ',
-    startTime: genTimeBlock('SUN', 15),
-    endTime: genTimeBlock('SUN', 17)
+    courseId: 'പഴംപൊരി',
+    section: 'കട്ടൻ',
+    day: 7,
+    startTime: '15:0',
+    endTime: '17:00'
   },
   {
-    title: 'ദോശ, ചട്നി',
-    startTime: genTimeBlock('SUN', 19),
-    endTime: genTimeBlock('SUN', 20, 30)
+    courseId: 'ദോശ',
+    section: 'ചട്നി',
+    day: 7,
+    startTime: '19:00',
+    endTime: '20:30'
   },
   {
-    title: 'ബ്രാഡ്, ജാം, കട്ടൻ',
-    startTime: genTimeBlock('MON', 8),
-    endTime: genTimeBlock('MON', 9, 30)
+    courseId: 'ബ്രാഡ്',
+    section: 'ജാം, കട്ടൻ',
+    day: 1,
+    startTime: '8:00',
+    endTime: '9:30'
   },
   {
-    title: 'ചോറ്, തോരൻ, മീൻ വറുത്തത്',
-    startTime: genTimeBlock('MON', 12),
-    endTime: genTimeBlock('MON', 1, 30)
+    courseId: 'ചോറ്',
+    section: 'തോരൻ, മീൻ വറുത്തത്',
+    day: 1,
+    startTime: '12:00',
+    endTime: '13:30'
   },
   {
-    title: 'ഉള്ളിവട, കട്ടൻ',
-    startTime: genTimeBlock('MON', 15),
-    endTime: genTimeBlock('MON', 17)
+    courseId: 'ഉള്ളിവട',
+    section: 'കട്ടൻ',
+    day: 1,
+    startTime: '15:00',
+    endTime: '17:00'
   },
   {
-    title: 'ചപ്പാത്തി, മുട്ടക്കറി',
-    startTime: genTimeBlock('MON', 19),
-    endTime: genTimeBlock('MON', 20, 30)
+    courseId: 'ചപ്പാത്തി',
+    section: 'മുട്ടക്കറി',
+    day: 1,
+    startTime: '19:00',
+    endTime: '20:30'
   },
   {
-    title: 'ഉപ്പുവാവ്, കടലക്കറി, കട്ടൻ',
-    startTime: genTimeBlock('TUE', 8),
-    endTime: genTimeBlock('TUE', 9, 30)
+    courseId: 'ഉപ്പുവാവ്',
+    section: 'കടലക്കറി, കട്ടൻ',
+    day: 2,
+    startTime: '8:00',
+    endTime: '9:30'
   },
   {
-    title: 'ചോറ്, മുട്ടത്തോരൻ, പരിപ്പുകറി',
-    startTime: genTimeBlock('TUE', 12),
-    endTime: genTimeBlock('TUE', 1, 30)
+    courseId: 'ചോറ്',
+    section: 'മുട്ടത്തോരൻ, പരിപ്പുകറി',
+    day: 2,
+    startTime: '12:00',
+    endTime: '13:30'
   },
   {
-    title: 'ചിപ്സ്, ചായ',
-    startTime: genTimeBlock('TUE', 15),
-    endTime: genTimeBlock('TUE', 17)
+    courseId: 'ചിപ്സ്',
+    section: 'ചായ',
+    day: 2,
+    startTime: '15:00',
+    endTime: '17:00'
   },
   {
-    title: 'പുട്ട്, ചിക്കൻ',
-    startTime: genTimeBlock('TUE', 19),
-    endTime: genTimeBlock('TUE', 20, 30)
+    courseId: 'പുട്ട്',
+    section: 'ചിക്കൻ',
+    day: 2,
+    startTime: '19:00',
+    endTime: '20:30'
   },
   {
-    title: 'ദോശ, ചട്നി, കട്ടൻ',
-    startTime: genTimeBlock('WED', 8),
-    endTime: genTimeBlock('WED', 9, 30)
+    courseId: 'ദോശ',
+    section: 'ചട്നി, കട്ടൻ',
+    day: 3,
+    startTime: '8:00',
+    endTime: '9:30'
   },
   {
-    title: 'ചോറ്, മീൻകറി, തോരൻ',
-    startTime: genTimeBlock('WED', 12),
-    endTime: genTimeBlock('WED', 1, 30)
+    courseId: 'ചോറ്',
+    section: 'മീൻകറി, തോരൻ',
+    day: 3,
+    startTime: '12:00',
+    endTime: '13:30'
   },
   {
-    title: 'മീറ്ററോൾ, കട്ടൻ',
-    startTime: genTimeBlock('WED', 15),
-    endTime: genTimeBlock('WED', 17)
+    courseId: 'മീറ്ററോൾ',
+    section: 'കട്ടൻ',
+    day: 3,
+    startTime: '15:00',
+    endTime: '17:00'
   },
   {
-    title: 'ചപ്പാത്തി, കുറുമ',
-    startTime: genTimeBlock('WED', 19),
-    endTime: genTimeBlock('WED', 20, 30)
+    courseId: 'ചപ്പാത്തി',
+    section: 'കുറുമ',
+    day: 3,
+    startTime: '19:00',
+    endTime: '20:30'
   },
   {
-    title: 'പുട്ട്, ചെറുപയർ, കട്ടൻ',
-    startTime: genTimeBlock('THU', 8),
-    endTime: genTimeBlock('THU', 9, 30)
+    courseId: 'പുട്ട്',
+    section: 'ചെറുപയർ, കട്ടൻ',
+    day: 4,
+    startTime: '8:00',
+    endTime: '9:30'
   },
   {
-    title: 'ചോറ്, തോരൻ, മീൻ വറുത്തത്',
-    startTime: genTimeBlock('THU', 12),
-    endTime: genTimeBlock('THU', 1, 30)
+    courseId: 'ചോറ്',
+    section: 'തോരൻ, മീൻ വറുത്തത്',
+    day: 4,
+    startTime: '12:00',
+    endTime: '13:30'
   },
   {
-    title: 'ക്രീം ബൺ, ചായ',
-    startTime: genTimeBlock('THU', 15),
-    endTime: genTimeBlock('THU', 17)
+    courseId: 'ക്രീം ബൺ',
+    section: 'ചായ',
+    day: 4,
+    startTime: '15:0',
+    endTime: '17:00'
   },
   {
-    title: 'പൊറോട്ട, ചിക്കൻ',
-    startTime: genTimeBlock('THU', 19),
-    endTime: genTimeBlock('THU', 20, 30)
+    courseId: 'പൊറോട്ട',
+    section: 'ചിക്കൻ',
+    day: 4,
+    startTime: '19:00',
+    endTime: '20:30'
   },
   {
-    title: 'ഇഡ്ഡലി, സാമ്പാർ, കട്ടൻ',
-    startTime: genTimeBlock('FRI', 8),
-    endTime: genTimeBlock('FRI', 9, 30)
+    courseId: 'ഇഡ്ഡലി',
+    section: 'സാമ്പാർ, കട്ടൻ',
+    day: 5,
+    startTime: '8:00',
+    endTime: '9:30'
   },
   {
-    title: 'ചോറ്, സാമ്പാർ, മോര്, തോരൻ',
-    startTime: genTimeBlock('FRI', 12),
-    endTime: genTimeBlock('FRI', 1, 30)
+    courseId: 'ചോറ്',
+    section: 'സാമ്പാർ, മോര്, തോരൻ',
+    day: 5,
+    startTime: '12:00',
+    endTime: '13:30'
   },
   {
-    title: 'ഉഴുന്നുവട, കട്ടൻ',
-    startTime: genTimeBlock('FRI', 15),
-    endTime: genTimeBlock('FRI', 17)
+    courseId: 'ഉഴുന്നുവട',
+    section: 'കട്ടൻ',
+    day: 5,
+    startTime: '15:00',
+    endTime: '17:00'
   },
   {
-    title: 'ബിരിയാണി',
-    startTime: genTimeBlock('FRI', 19),
-    endTime: genTimeBlock('FRI', 20, 30)
+    courseId: 'ബിരിയാണി',
+    day: 5,
+    startTime: '19:00',
+    endTime: '20:30'
   },
   {
-    title: 'മസാലദോശ, ചട്നി, കട്ടൻ',
-    startTime: genTimeBlock('SAT', 8),
-    endTime: genTimeBlock('SAT', 9, 30)
+    courseId: 'മസാലദോശ',
+    section: 'ചട്നി, കട്ടൻ',
+    day: 6,
+    startTime: '8:00',
+    endTime: '9:30'
   },
   {
-    title: 'ചോറ്, മീൻകറി, തോരൻ',
-    startTime: genTimeBlock('SAT', 12),
-    endTime: genTimeBlock('SAT', 1, 30)
+    courseId: 'ചോറ്',
+    section: 'മീൻകറി, തോരൻ',
+    day: 6,
+    startTime: '12:00',
+    endTime: '13:30'
   },
   {
-    title: 'അവിൽ, പഴം, കട്ടൻ',
-    startTime: genTimeBlock('SAT', 15),
-    endTime: genTimeBlock('SAT', 17)
+    courseId: 'അവിൽ',
+    section: 'പഴം, കട്ടൻ',
+    day: 6,
+    startTime: '15:00',
+    endTime: '17:00'
   },
   {
-    title: 'നൂൽപുട്ട്, വെള്ളക്കടല',
-    startTime: genTimeBlock('SAT', 19),
-    endTime: genTimeBlock('SAT', 20, 30)
+    courseId: 'നൂൽപുട്ട്',
+    section: 'വെള്ളക്കടല',
+    day: 6,
+    startTime: '19:00',
+    endTime: '20:30'
   },
 ]
 
 const Food = () => {
   const isDarkMode = useColorScheme() === 'dark';
-  const pivotDate = useMemo(() => genTimeBlock('mon'), []);
-
-  const backgroundStyle = {
-    // backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    flex: 1,
-  };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={styles.SafeAreaView}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <View style={styles.container}>
-        <TimeTableView
-          // scrollViewRef={this.scrollViewRef}
-          events={FIXTURE_EVENTS}
-          pivotTime={8}
-          pivotEndTime={22}
-          pivotDate={pivotDate}
-          nDays={7}
+        <TimeTable
+          events={events}
+          eventOnPress={(event) => Alert.alert(`${JSON.stringify(event)}`)}
+          configs={{startHour: 8, endHour: 21}}
           headerStyle={styles.headerStyle}
-          formatDateHeader="ddd"
-          locale="in"
         />
       </View>
     </SafeAreaView>
@@ -191,6 +234,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
+  SafeAreaView: {
+    flex: 1
+  }
 });
 
 export default Food;
