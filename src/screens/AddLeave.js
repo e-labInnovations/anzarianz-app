@@ -27,32 +27,42 @@ const AddLeave = () => {
   }, [leavingAt])
   
   useEffect(() => {
-    let leavingAt8AM = moment(leavingAt).set({ hour: 8, minute: 0 })
-    let rejoiningAtPM = moment(rejoiningAt).set({ hour: 21, minute: 0 })
-    // let leavingAt = moment(leavingAt)
-    // let rejoiningAt = moment(rejoiningAt)
-
-    let _completeDays = moment(rejoiningAt).diff(moment(leavingAt),'d')
-
-    if(moment(leavingAt).isAfter(leavingAt8AM)) {
-      _completeDays-1
-      console.log('After 8AM');
-    }
-
-    if(moment(rejoiningAt).isBefore(rejoiningAtPM)) {
-      console.log('Before 9PM');
-      _completeDays-1
-    }
-    console.log('old', completeDays);
-    console.log('New', _completeDays);
-    // console.log('Leaving1', leavingAt8AM.format('DD/MM hh:mm A'));
-    // console.log('Leaving2', moment(leavingAt).format('DD/MM hh:mm A'));
-
-    // console.log(leavingAt);
-    // console.log('Leaving', leavingAt8AM.format('hh:mm A'));
-    // console.log('Rejoining', rejoiningAtPM.format('hh:mm A'));
-    setCompleteDays(_completeDays);
+    setCompleteDays(getCompleteDays(leavingAt, rejoiningAt));
   }, [leavingAt, rejoiningAt])
+
+  const getDates = (leavingDate, rejoiningDate) => {
+    var dateArray = [];
+    var currentDate = moment(new Date(leavingDate));
+    var rejoiningDate = moment(new Date(rejoiningDate));
+    while (currentDate <= rejoiningDate) {
+      dateArray.push( moment(currentDate))
+      currentDate = moment(currentDate).add(1, 'days');
+    }
+    dateArray[dateArray.length-1] = rejoiningDate
+    return dateArray;
+  }
+
+  const getCompleteDays = (leavingDate, rejoiningDate) => {
+    let datesArrays = getDates(leavingDate, rejoiningDate)
+    let rejoiningPos = datesArrays.length-1
+    let leavingAt8AM = moment(datesArrays[0]).set({ hour: 8, minute: 0 })
+    let rejoiningAt8PM = moment(datesArrays[rejoiningPos]).set({ hour: 21, minute: 0 })
+
+    if (datesArrays[0].isAfter(leavingAt8AM)) {
+    } else {
+      datesArrays.shift();
+    }
+    
+    rejoiningPos = datesArrays.length-1
+
+    if (datesArrays[rejoiningPos].isBefore(rejoiningAt8PM)) {
+    } else {
+      datesArrays.pop();
+    }
+
+    // console.log(datesArrays.map(f=> f.format('YY/DD/MM hh:mm A')));
+    return datesArrays.length
+  }
 
   const showDatePicker1 = () => {
     setDatePicker1Visibility(true);
