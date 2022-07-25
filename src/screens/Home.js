@@ -12,7 +12,7 @@ import {
 
 import { AuthContext } from "../context/AuthContext";
 
-const Home = ( {navigation} ) => {
+const Home = ({ navigation }) => {
   const { userInfo } = useContext(AuthContext)
 
   useEffect(() => {

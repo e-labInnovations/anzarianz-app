@@ -15,7 +15,7 @@ import moment from 'moment';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Theme } from '../Theme';
 
-const MessLeaves = ({navigation}) => {
+const MessLeaves = ({ navigation, route }) => {
   const { userToken } = useContext(AuthContext)
   const { userInfo } = useContext(AuthContext)
   const [markedDates, setMarkedDates] = useState({})
@@ -55,6 +55,16 @@ const MessLeaves = ({navigation}) => {
   useEffect(() => {
     getLeaves()
   }, [])
+
+  useEffect(() => {
+    if (route.params?.newItem) {
+      // console.log(route.params?.newItem);
+      let _leaves = leaves
+      _leaves.push(route.params?.newItem)
+      setLeaves(_leaves)
+      console.log(_leaves);
+    }
+  }, [route.params?.newItem]);
 
   useEffect(() => {
     function getDates(startDate, stopDate) {
