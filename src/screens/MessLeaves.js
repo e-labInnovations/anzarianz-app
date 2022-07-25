@@ -62,7 +62,7 @@ const MessLeaves = ({ navigation, route }) => {
       let _leaves = leaves
       _leaves.push(route.params?.newItem)
       setLeaves(_leaves)
-      console.log(_leaves);
+      // console.log(_leaves);
     }
   }, [route.params?.newItem]);
 
