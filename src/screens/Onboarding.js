@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 import { Theme } from "../Theme";
-import { MaterialIcons } from '@expo/vector-icons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import StartImg from '../../assets/images/mobile_life_re_jtih.svg'
 
 const Onboarding = ({navigation}) => {

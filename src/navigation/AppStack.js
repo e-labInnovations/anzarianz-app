@@ -3,7 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import TabNavigator from './TabNavigator';
 import Settings from '../screens/Settings';
 import CustomDrawer from '../components/CustomDrawer';
-import { AntDesign } from '@expo/vector-icons';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { Theme } from '../Theme';
 
 const Drawer = createDrawerNavigator();

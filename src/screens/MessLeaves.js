@@ -12,7 +12,7 @@ import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from '../config';
 import { FloatingAction } from "react-native-floating-action";
 import moment from 'moment';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { Theme } from '../Theme';
 
 const MessLeaves = ({navigation}) => {

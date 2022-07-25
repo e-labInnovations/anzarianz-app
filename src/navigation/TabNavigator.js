@@ -11,7 +11,9 @@ import Payments from '../screens/Payments';
 import AddLeave from '../screens/AddLeave'
 
 import { Theme } from '../Theme';
-import { Ionicons, Entypo, FontAwesome5 } from '@expo/vector-icons';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Entypo from '@expo/vector-icons/Entypo';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

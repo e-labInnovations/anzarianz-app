@@ -11,8 +11,8 @@ import {
 
 import { Theme } from '../Theme';
 import LoginSVG from '../../assets/images/login_re_4vu2.svg'
-import { FontAwesome5 } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { AuthContext } from '../context/AuthContext';
 
 const Login = () => {
