@@ -5,6 +5,7 @@ import {
   ScrollView,
   Text,
   RefreshControl,
+  View,
 } from 'react-native'
 import { Calendar } from 'react-native-calendars';
 import axios from 'axios'
@@ -22,6 +23,7 @@ const MessLeaves = ({ navigation, route }) => {
   const [leaves, setLeaves] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false);
+  const [selectedLeave, setSelectedLeave] = useState(null)
 
   const actions = [
     {
@@ -40,7 +42,17 @@ const MessLeaves = ({ navigation, route }) => {
   }, []);
 
   const handleDayPress = (day) => {
-    console.log(day)
+    let pressedDate = moment(day.dateString,"YYYY-MM-DD")
+    let pressedLeave = leaves.find(leave => {
+      let leavingDate = moment(leave.leaving_at.split(' ')[0], 'YYYY-MM-DD')
+      let rejoiningDate = moment(leave.rejoining_at.split(' ')[0], 'YYYY-MM-DD')
+      return (
+        pressedDate.isBetween(leavingDate, rejoiningDate) ||
+        pressedDate.isSame(leave.leaving_at.split(' ')[0]) ||
+        pressedDate.isSame(leave.rejoining_at.split(' ')[0])
+      )
+    })
+    setSelectedLeave(pressedLeave)
   }
 
   const getLeaves = () => {
@@ -129,7 +141,13 @@ const MessLeaves = ({ navigation, route }) => {
           markingType={'period'}
           onDayPress={handleDayPress}
           displayLoadingIndicator={isLoading}
+          enableSwipeMonths={true}
         />
+        {selectedLeave && (
+          <View style={styles.singleLeaveView}>
+            <Text>{selectedLeave.reason}</Text>
+          </View>
+        )}
         <Text>{JSON.stringify(leaves)}</Text>
       </ScrollView>
       <FloatingAction
@@ -152,6 +170,21 @@ const styles = StyleSheet.create({
     flex: 1,
     // marginTop:StatusBar.currentHeight,
     backgroundColor: '#fff',
+  },
+  singleLeaveView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 40,
+    padding: 8,
+    backgroundColor: "#ffffff",
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
   },
 });
 
