@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import {
   SafeAreaView,
   StyleSheet,
-  View,
+  ScrollView,
   Text,
-  StatusBar,
+  RefreshControl,
 } from 'react-native'
 import { Calendar } from 'react-native-calendars';
 import axios from 'axios'
@@ -21,6 +21,7 @@ const MessLeaves = ({ navigation, route }) => {
   const [markedDates, setMarkedDates] = useState({})
   const [leaves, setLeaves] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false);
 
   const actions = [
     {
@@ -31,6 +32,12 @@ const MessLeaves = ({ navigation, route }) => {
       color: Theme.Primary
     }
   ];
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setIsLoading(true)
+    getLeaves()
+  }, []);
 
   const handleDayPress = (day) => {
     console.log(day)
@@ -46,9 +53,11 @@ const MessLeaves = ({ navigation, route }) => {
       // console.log(JSON.stringify(userResponse.data));
       setLeaves(userResponse.data)
       setIsLoading(false)
+      setRefreshing(false);
     }).catch(function (error) {
       console.log('Error getting user info', error);
       setIsLoading(false)
+      setRefreshing(false);
     });
   }
 
@@ -83,13 +92,21 @@ const MessLeaves = ({ navigation, route }) => {
     leaves.forEach(leave => {
       let startDate = leave.leaving_at.split(' ')[0]
       let endDate = leave.rejoining_at.split(' ')[0]
+      let color = 'red'
+      if (leave.status == 'approved') {
+        color = 'green'
+      } else if (leave.status == 'added') {
+        color = 'blue'
+      } else if (leave.status == 'spam') {
+        color = 'orange'
+      }
 
       var dateArray = getDates(startDate, endDate);
       dateArray.forEach((date, idx, array) => {
         _markedDates[date] = {
           startingDay: idx === 0,
           endingDay: idx === array.length - 1,
-          color: 'red',
+          color: color,
           textColor: '#fff'
         }
       })
@@ -99,13 +116,22 @@ const MessLeaves = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Calendar
-        markedDates={markedDates}
-        markingType={'period'}
-        onDayPress={handleDayPress}
-        displayLoadingIndicator={isLoading}
-      />
-      <Text>{JSON.stringify(leaves)}</Text>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      >
+        <Calendar
+          markedDates={markedDates}
+          markingType={'period'}
+          onDayPress={handleDayPress}
+          displayLoadingIndicator={isLoading}
+        />
+        <Text>{JSON.stringify(leaves)}</Text>
+      </ScrollView>
       <FloatingAction
         actions={actions}
         onPressItem={name => {
