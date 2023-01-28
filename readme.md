@@ -18,3 +18,4 @@
 - [x] add leave to server
 - [ ] delete leave
 - [ ] click leave marking
+- [ ] Implement guest food option

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "915853985336",
+    "project_id": "anzarianz-app",
+    "storage_bucket": "anzarianz-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915853985336:android:247c94a4cc58b34928c8cd",
+        "android_client_info": {
+          "package_name": "com.elabins.anzarianz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915853985336-9ust8jmi3jcm3p39er75ageppl25n49n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOTY8n_bh77ZTTe1iHL55qJpd8wanFZ_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "915853985336-9ust8jmi3jcm3p39er75ageppl25n49n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

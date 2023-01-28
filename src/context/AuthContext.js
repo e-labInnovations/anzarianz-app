@@ -23,6 +23,8 @@ export const AuthProvider = ({children}) => {
         axios.post(`${BASE_URL}/wp-json/jwt-auth/v1/token`, {
             username,
             password
+        }, {
+            withCredentials: true
         }).then(response => {
             // console.log('Login Success: ', response.data);
             let _userToken = response.data.data.token
