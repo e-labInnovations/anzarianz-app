@@ -222,7 +222,7 @@ const Food = () => {
           <ScrollView style={styles.dataWrapper}>
             <Table style={{flexDirection: 'row'}} borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
               <TableWrapper style={styles.leftWrapper}>
-                <Cell data="Days" style={styles.singleHead} textStyle={{textAlign: 'center', color: Theme.Tertiary, fontWeight:'bold'}}/>
+                <Cell data="Days" style={styles.singleHead} textStyle={styles.headText}/>
                 <Col data={tableTitle} style={styles.title} textStyle={styles.headText}/>
               </TableWrapper>
               <TableWrapper style={styles.rightWrapper}>

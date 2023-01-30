@@ -39,7 +39,7 @@
     "react-native-screens": "~3.11.1",
     "react-native-svg": "12.3.0",
     "react-native-svg-transformer": "^1.0.0",
-    "react-native-table-component": "^1.2.2",
+    "react-native-table-component": "github:sturmenta/react-native-table-component#e1582aaba92b7e070c31c98b116eea9c23e17f6d",
     "react-native-toast-message": "^2.1.5",
     "react-native-web": "0.17.7"
   },
