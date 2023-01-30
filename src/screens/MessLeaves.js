@@ -7,7 +7,7 @@ import {
   RefreshControl,
   View,
 } from 'react-native'
-import { Calendar } from 'react-native-calendars';
+import { CalendarList } from 'react-native-calendars';
 import axios from 'axios'
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from '../config';
@@ -136,12 +136,13 @@ const MessLeaves = ({ navigation, route }) => {
           />
         }
       >
-        <Calendar
+        <CalendarList
           markedDates={markedDates}
           markingType={'period'}
           onDayPress={handleDayPress}
           displayLoadingIndicator={isLoading}
-          enableSwipeMonths={true}
+          horizontal={true}
+          pagingEnabled={true}
         />
         {selectedLeave && (
           <View style={styles.singleLeaveView}>
