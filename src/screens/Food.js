@@ -222,7 +222,7 @@ const Food = () => {
           <ScrollView style={styles.dataWrapper}>
             <Table style={{flexDirection: 'row'}} borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
               <TableWrapper style={styles.leftWrapper}>
-                <Cell data="Days" style={styles.singleHead} textStyle={styles.headText}/>
+                <Cell data="Days" style={styles.singleHead} textStyle={{textAlign: 'center', color: Theme.Tertiary, fontWeight:'bold'}}/>
                 <Col data={tableTitle} style={styles.title} textStyle={styles.headText}/>
               </TableWrapper>
               <TableWrapper style={styles.rightWrapper}>
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
   title:        { backgroundColor: Theme.Primary, flex:1 },
   row:          { height: 75 },
   text:         { textAlign: 'left', margin: 6, color: '#000000' },
-  headText:     { textAlign: 'center', color: Theme.Tertiary}
+  headText:     { textAlign: 'center', color: Theme.Tertiary, fontWeight:'bold' }
 });
 
 export default Food
