@@ -15,6 +15,7 @@ import { FloatingAction } from "react-native-floating-action";
 import moment from 'moment';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Theme } from '../Theme';
+import Card from '../components/Card'
 
 const MessLeaves = ({ navigation, route }) => {
   const { userToken } = useContext(AuthContext)
@@ -53,6 +54,7 @@ const MessLeaves = ({ navigation, route }) => {
       )
     })
     setSelectedLeave(pressedLeave)
+    console.log(pressedLeave);
   }
 
   const getLeaves = () => {
@@ -87,6 +89,21 @@ const MessLeaves = ({ navigation, route }) => {
     }
   }, [route.params?.newItem]);
 
+  const getColor = (status) => {
+    switch (status) {
+      case 'approved':
+        return 'green'
+      case 'added':
+        return 'blue'
+      case 'spam':
+        return 'orange'
+      case 'rejected':
+        return 'red'
+      default:
+        return 'blue'
+    }
+  }
+
   useEffect(() => {
     function getDates(startDate, stopDate) {
       var dateArray = [];
@@ -104,14 +121,7 @@ const MessLeaves = ({ navigation, route }) => {
     leaves.forEach(leave => {
       let startDate = leave.leaving_at.split(' ')[0]
       let endDate = leave.rejoining_at.split(' ')[0]
-      let color = 'red'
-      if (leave.status == 'approved') {
-        color = 'green'
-      } else if (leave.status == 'added') {
-        color = 'blue'
-      } else if (leave.status == 'spam') {
-        color = 'orange'
-      }
+      let color = getColor(leave.status)
 
       var dateArray = getDates(startDate, endDate);
       dateArray.forEach((date, idx, array) => {
@@ -146,11 +156,48 @@ const MessLeaves = ({ navigation, route }) => {
         />
         {selectedLeave && (
           <View style={styles.singleLeaveView}>
-            <Text>{selectedLeave.reason}</Text>
+            <Card style={styles.card}>
+              <View style={styles.rowView}>
+                <View style={[styles.iconView, {backgroundColor: getColor(selectedLeave.status)}]}>
+                  <Ionicons name="checkmark-done-circle" size={24} color="#fff" />
+                </View>
+                <View>
+                  <Text style={{fontWeight: 'bold', fontSize: 20}}>{selectedLeave.status}</Text>
+                  <Text>Leaving at: {selectedLeave.leaving_at}</Text>
+                  <Text>Rejoining at: {selectedLeave.rejoining_at}</Text>
+                  <Text>Reason: {selectedLeave.reason}</Text>
+                  <Text>Note: {selectedLeave.rejection_note}</Text>
+
+                </View>
+                </View>
+            </Card>
           </View>
         )}
-        <Text>{JSON.stringify(leaves)}</Text>
+
+        {(!selectedLeave && !isLoading) && (leaves.map(leave => { 
+          return (
+            <View style={styles.singleLeaveView}>
+              <Card style={styles.card}>
+                <View style={styles.rowView}>
+                  <View style={[styles.iconView, {backgroundColor: getColor(leave.status)}]}>
+                    <Ionicons name="checkmark-done-circle" size={24} color="#fff" />
+                  </View>
+                  <View>
+                    <Text style={{fontWeight: 'bold', fontSize: 20}}>{leave.status}</Text>
+                    <Text>Leaving at: {leave.leaving_at}</Text>
+                    <Text>Rejoining at: {leave.rejoining_at}</Text>
+                    <Text>Reason: {leave.reason}</Text>
+                    <Text>Note: {leave.rejection_note}</Text>
+
+                  </View>
+                  </View>
+              </Card>
+            </View>
+          )
+        }))}
+        
       </ScrollView>
+
       <FloatingAction
         actions={actions}
         onPressItem={name => {
@@ -173,20 +220,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   singleLeaveView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 40,
-    padding: 8,
-    backgroundColor: "#ffffff",
-    borderRadius: 10,
-    shadowColor: "#000000",
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 0
-    }
+    flex: 1,
+    margin: 8,
   },
+  card: {
+    width: '100%',
+    backgroundColor: '#ffffff',
+  },
+  rowView: {
+    flexDirection: 'row',
+    alignItems: 'center', //Centered vertically
+    flex:1
+  },
+  iconView: {
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+    marginRight: 8
+  }
 });
 
 export default MessLeaves
